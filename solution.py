@@ -79,4 +79,8 @@ if recv1[:3] != '250':
 clientSocket.send("QUIT\r\n".encode())
 mesg=clientSocket.recv(1024)
 # File in end
+<<<<<<< HEAD
 clientSocket.close()
+=======
+clientSocket.close()
+>>>>>>> 966cfc86b89fe0cccfd4fabc0cd47127599d0a30
