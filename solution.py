@@ -1,6 +1,4 @@
 from socket import *
-import ssl
-
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
@@ -13,8 +11,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Fill in start
     clientSocket = socket(AF_INET, SOCK_STREAM)
-    clientSocket = ssl.wrap_socket(clientSocket)
-    clientSocket.connect((mailserver, port))
+    clientSocket.connect(mailserver)
     # Fill in end
     recv = clientSocket.recv(1024).decode()
     #print(recv) #You can use these print statement to validate return codes from the server.
