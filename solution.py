@@ -11,7 +11,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Fill in start
     clientSocket = socket(AF_INET, SOCK_STREAM)
-    clientSocket.connect(mailserver)
+    clientSocket.connect(('server', port))
     # Fill in end
     recv = clientSocket.recv(1024).decode()
     #print(recv) #You can use these print statement to validate return codes from the server.
@@ -44,21 +44,20 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
 
     # Send DATA command and handle server response.
     # Fill in start
-    dataCommand = 'DATA\r\n'
-    clientSocket.send(dataCommand)
-    recv = clientSocket.recv(1024)
+    client = 'DATA\r\n'
+    clientSocket.send('DATA\r\n')
     # Fill in end
 
     # Send message data.
     # Fill in start
-    clientSocket.send(msg)
+    clientSocket.send(bytes(msg))
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
 
     # Fill in end
-    clientSocket.send(endmsg)
+    clientSocket.send(bytes(endmsg))
 
 
     # Send QUIT command and handle server response.
