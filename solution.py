@@ -1,24 +1,19 @@
-from email import message
-from http import client
 from socket import *
-import base64
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
     endmsg = "\r\n.\r\n"
 
 # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-mailserver = "smtp.163.com"
-mailUser = 'msall'
-mailFromAddress = 'mamadoudesall@gmail.com'
-mailPassWord = '******'
-mailToAddress = 'ms13592@nyu.edu'
+import smtplib
 
-msg = 'FROM: ' + mailFromAddress + '\r\n'
-msg += 'TO: ' + mailToAddress +  '\r\n'
-msg += 'Subject: ' + 'testing' +  '\r\n'
-msg += "\r\n Keep on learning!"
-endmsg = "\r\n.\r\n"
+server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+server.login("msal", "toor")
+server.sendmail(
+  "from@gmail.com", 
+  "to@address.com", 
+  "this message is from me, on python")
+server.quit()
 
 # Create socket called clientSocket and establish a TCP connection with mailserver and port
 # Fill in start
@@ -49,7 +44,6 @@ while True:
    # print(recv)
     if recv[:3] == '334':
         break
-userCommand = base64.b64encode(mailUser.encode()) + b'\r\n'
 while True:
     clientSocket.send(userCommand)
     recv = clientSocket.recv(1024)
@@ -57,7 +51,6 @@ while True:
    # print(recv)
     if recv[:3] == '334':
         break                
-passCommand = base64.b64encode(mailPassWord.encode()) + b'\r\n'
 while True:
     clientSocket.send(passCommand)
     recv = clientSocket.recv(1024)
