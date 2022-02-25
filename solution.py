@@ -15,9 +15,8 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in start
     target = "google.com"
     port = 443
-    
-    clientSocket = socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientSocket.connect(mailserver, port)
+    clientSocket = socket(AF_INET, SOCK_STREAM)
+    clientSocket.connect((mailserver, 1025))
     recv = clientSocket.recv(1024)
     #print(recv)
     #if recv[:3] == '220':
@@ -47,7 +46,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Fill in start
     recptTo = 'RCPT TO:<ms13592@nyu.edu>\r\n'
     clientSocket.send(recptTo.encode())
-    recv = clientSocket.recv(1024).encode()
+    recv = clientSocket.recv(1024)
     #print(recv)
     #if recv[:3] != '250':
         #print('250 reply not recieved from server.')
@@ -73,7 +72,7 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
     clientSocket.send(bytes(endmsg.encode()))
-    recv_msg = clientSocket.read(1024).decode()
+    recv_msg = clientSocket.send(bytes(1024))
     #print (recv)
     #if recv[:3] != '250':
         #print('250 reply not received form server.')
