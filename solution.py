@@ -1,36 +1,35 @@
 from socket import *
-import smtplib
-mail=smtplib.SMTP('smtp.gmail.com',587)
-mail.ehlo()
-mail.starttls()
-username='mamadoudesall@gmail.com'
-password='passworld'
-mail.login(username,password)
-mail.sendmail(username,'ms13592@nyu.edu','Subject:Testing \n\n Hello this is an email ')
-mail.quit()
-print("Hey, please check your gmail, I sent you my SMTP Test.")
+
 
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n Testing My SMTP"
     endmsg = "\r\n.\r\n"
 
+    sender = 'mamadoudesall@gmail.com'
+    recipient = 'ms13592@nyu.edu'
+    username = 'msall'
+    password ='passworld'
+    
+
     # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-
+    mailserver ="smtp.gmail.com"
+    port = 587
+    
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
-
     # Fill in start
+    clientSocket = socket.socket()
+    clientSocket.connect((mailserver, port))
+    recv = clientSocket.recv(1024)
+    #print(recv)
+    #if recv[:3] == '220':
+    #    print ('220 reply not received from server')
     # Fill in end
-
-    recv = clientSocket.recv(1024).decode()
-    #print(recv) #You can use these print statement to validate return codes from the server.
-    #if recv[:3] != '220':
-    #    print('220 reply not received from server.')
 
     # Send HELO command and print server response.
     heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
-    recv1 = clientSocket.recv(1024).decode()
+    recv = clientSocket.recv(1024).decode()
     #print(recv1) 
     #if recv1[:3] != '250':
     #    print('250 reply not received from server.')
