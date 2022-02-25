@@ -1,134 +1,63 @@
 from socket import *
+import smtplib
+mail=smtplib.SMTP('smtp.gmail.com',587)
+mail.ehlo()
+mail.starttls()
+username='mamadoudesall@gmail.com'
+password='passworld'
+mail.login(username,password)
+mail.sendmail(username,'ms13592@nyu.edu','Subject:Testing \n\n Hello this is an email ')
+mail.quit()
+print("Hey, please check your gmail, I sent you my SMTP Test.")
+
 
 def smtp_client(port=1025, mailserver='127.0.0.1'):
-    msg = "\r\n My message"
+    msg = "\r\n Testing My SMTP"
     endmsg = "\r\n.\r\n"
 
-# Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-import smtplib
+    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
 
-server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-server.login("msal", "toor")
-server.sendmail(
-  "from@gmail.com", 
-  "to@address.com", 
-  "this message is from me, on python")
-server.quit()
+    # Create socket called clientSocket and establish a TCP connection with mailserver and port
 
-# Create socket called clientSocket and establish a TCP connection with mailserver and port
-# Fill in start
-clientSocket = socket(AF_INET, SOCK_STREAM)
-clientSocket.connect(('mailserver',25))
-# Fill in end
-recv = clientSocket.recv(1024)
-recv = recv.decode()
-#print(recv) #You can use these print statement to validate return codes from the server.
-#if recv[:3] != '220':
-# #    print('220 reply not received from server.')
+    # Fill in start
+    # Fill in end
 
-# Send HELO command and print server response.
-heloCommand = 'HELO Alice\r\n'
-while True:
+    recv = clientSocket.recv(1024).decode()
+    #print(recv) #You can use these print statement to validate return codes from the server.
+    #if recv[:3] != '220':
+    #    print('220 reply not received from server.')
+
+    # Send HELO command and print server response.
+    heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
-    recv1 = clientSocket.recv(1024)
-    recv = recv.decode()
-    #print(recv)
-    if recv[:3] == '250':
+    recv1 = clientSocket.recv(1024).decode()
+    #print(recv1) 
+    #if recv1[:3] != '250':
     #    print('250 reply not received from server.')
-                break
-loginCommand = 'auth login\r\n'
-while True:
-    clientSocket.send(loginCommand.encode())
-    recv = clientSocket.recv(1024)
-    recv = recv.decode()
-   # print(recv)
-    if recv[:3] == '334':
-        break
-while True:
-    clientSocket.send(userCommand)
-    recv = clientSocket.recv(1024)
-    recv = recv.decode()
-   # print(recv)
-    if recv[:3] == '334':
-        break                
-while True:
-    clientSocket.send(passCommand)
-    recv = clientSocket.recv(1024)
-    recv = recv.decode()
-   # print(recv)
-    if recv[:3] == '235':
-        break
-    
+
     # Send MAIL FROM command and handle server response.
     # Fill in start
-    MFCommand = 'MAIL From:<'+ mailFromAddress + '>\r\n'
-    while True:
-        clientSocket.send(MFCommand.encode())
-        recv = clientSocket.recv(1024)
-        clientSocket.send(MFCommand.encode())
-        recv = clientSocket.recv(1024).decode()
-        recv = recv.decode()
-        #print(recv)
-        if recv[:3] == '250':
-            break
     # Fill in end
 
     # Send RCPT TO command and handle server response.
     # Fill in start
-    RTCommand = 'RCPT To: <'+ mailToAddress + '>\r\n'
-    while True:
-        clientSocket.send(RTCommand.encode())
-        recv = clientSocket.recv(1024)
-        recv = recv.decode()
-        #print(recv)
-        if recv[:3] == '250':
-            break    
     # Fill in end
 
     # Send DATA command and handle server response.
     # Fill in start
-    DATACommand = 'DATA\r\n'
-    while True:
-        clientSocket.send(DATACommand.encode())
-        recv_data = clientSocket.recv(1024)
-        recv = recv.decode()
-        #print(recv)
-        if recv[:3] == '354':
-            break
     # Fill in end
-
 
     # Send message data.
     # Fill in start
-    clientSocket.send(bytes(msg.encode())
     # Fill in end
 
     # Message ends with a single period, send message end and handle server response.
     # Fill in start
-    while True:
-        clientSocket.send(bytes(msg.encode))
-        recv = clientSocket.recv(1024)
-        recv = recv.decode()
-        #print(recv)
-        if recv[:3] == '250':
-            break
-
     # Fill in end
-
 
     # Send QUIT command and handle server response.
     # Fill in start
-    QUITCommand = 'QUIT\r\n'
-    while True:
-        clientSocket.send(QUITCommand.endmsg())
-        recv = clientSocket.recv(1024)
-        recv = recv.base64.decode()
-        #print(recv)
-        if  recv[:3] == '221':
-            break
-
     # Fill in end
-    clientSocket.close()
 
 
 if __name__ == '__main__':
