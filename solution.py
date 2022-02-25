@@ -13,8 +13,11 @@ def smtp_client(port=1025, mailserver='127.0.0.1'):
     
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
     # Fill in start
-    clientSocket = socket(AF_INET, SOCK_STREAM)
-    clientSocket.connect(mailserver)
+    target = "google.com"
+    port = 443
+    
+    clientSocket = socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientSocket.connect(mailserver, port)
     recv = clientSocket.recv(1024)
     #print(recv)
     #if recv[:3] == '220':
